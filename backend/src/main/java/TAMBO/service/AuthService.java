@@ -14,6 +14,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.Optional;
 import java.util.Set;
+import java.util.stream.Collectors;
 
 @Service
 public class AuthService {
@@ -43,13 +44,29 @@ public class AuthService {
         usuario.setDireccion(dto.getDireccion());
         usuario.setTelefono(dto.getTelefono());
 
-        Rol rolUser = rolRepo.findByNombre("ROLE_USER")
-                .orElseThrow(() -> new RuntimeException("Rol no encontrado"));
-        usuario.setRoles(Set.of(rolUser));
+        Set<String> nombresRoles = (dto.getRoles() == null || dto.getRoles().isEmpty())
+                ? Set.of("ROLE_USER")
+                : dto.getRoles();
+
+        Set<Rol> rolesAsignados = nombresRoles.stream()
+                .map(nombre -> rolRepo.findByNombre(nombre)
+                        .orElseThrow(() -> new RuntimeException("Rol no encontrado: " + nombre)))
+                .collect(Collectors.toSet());
+
+        usuario.setRoles(rolesAsignados);
 
         Usuario guardado = repo.save(usuario);
 
-        return new UsuarioDTO(guardado);
+        return new UsuarioDTO(
+                guardado.getNombres(),
+                guardado.getApellidos(),
+                guardado.getDireccion(),
+                guardado.getTelefono(),
+                guardado.getDni(),
+                guardado.getCorreo(),
+                null,
+                nombresRoles
+        );
     }
 
     public AuthResponse login(AuthRequest request) {
