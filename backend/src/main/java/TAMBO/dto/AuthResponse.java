@@ -9,7 +9,6 @@ public class AuthResponse {
         this.rol = rol;
     }
 
-    // Getters
     public String getToken() {
         return token;
     }
