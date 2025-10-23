@@ -1,20 +1,21 @@
 package TAMBO.service;
 
-import TAMBO.dto.AuthRequest;
-import TAMBO.dto.AuthResponse;
-import TAMBO.dto.UsuarioDTO;
-import TAMBO.entity.Usuario;
-import TAMBO.entity.Rol;
-import TAMBO.repository.UsuarioRepository;
-import TAMBO.repository.RolRepository;
-import TAMBO.util.JwtUtil;
+import java.util.Optional;
+import java.util.Set;
+import java.util.stream.Collectors;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
-import java.util.Optional;
-import java.util.Set;
-import java.util.stream.Collectors;
+import TAMBO.dto.JWT.JwtService;
+import TAMBO.dto.controller.AuthRequest;
+import TAMBO.dto.controller.AuthResponse;
+import TAMBO.dto.controller.UsuarioDTO;
+import TAMBO.entity.Rol;
+import TAMBO.entity.Usuario;
+import TAMBO.repository.RolRepository;
+import TAMBO.repository.UsuarioRepository;
 
 @Service
 public class AuthService {
@@ -26,7 +27,7 @@ public class AuthService {
     private RolRepository rolRepo;
 
     @Autowired
-    private JwtUtil jwtUtil;
+    private JwtService jwtService;
 
     private final BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
 
@@ -65,8 +66,7 @@ public class AuthService {
                 guardado.getDni(),
                 guardado.getCorreo(),
                 null,
-                nombresRoles
-        );
+                nombresRoles);
     }
 
     public AuthResponse login(AuthRequest request) {
@@ -82,12 +82,18 @@ public class AuthService {
             throw new RuntimeException("Contraseña incorrecta");
         }
 
-        String token = jwtUtil.generarToken(usuario.getCorreo());
+        String token = jwtService.generateToken(usuario);
         String rol = usuario.getRoles().stream()
                 .findFirst()
                 .map(Rol::getNombre)
                 .orElse("ROLE_USER");
 
-        return new AuthResponse(token, rol);
+        return new AuthResponse(
+                token,
+                "Login exitoso",
+                usuario.getId(),
+                usuario.getNombres(),
+                usuario.getCorreo(),
+                rol);
     }
 }
