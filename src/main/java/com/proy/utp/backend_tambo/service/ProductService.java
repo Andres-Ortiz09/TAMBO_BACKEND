@@ -2,42 +2,50 @@ package com.proy.utp.backend_tambo.service;
 
 import com.proy.utp.backend_tambo.model.Product;
 import com.proy.utp.backend_tambo.repository.ProductRepository;
+import jakarta.transaction.Transactional;
 import org.springframework.stereotype.Service;
 import java.util.List;
 
 @Service
 public class ProductService {
 
-    private final ProductRepository repo;
+    private final ProductRepository repository;
 
-    public ProductService(ProductRepository repo) {
-        this.repo = repo;
+    public ProductService(ProductRepository repository) {
+        this.repository = repository;
     }
 
-    public Product create(Product p) {
-        return repo.save(p);
+    @Transactional
+    public Product create(Product product) {
+        return repository.save(product);
+    }
+
+    // Método para buscar producto por id (lanza excepción si no existe)
+    public Product findById(Long id) {
+        return repository.findById(id)
+                .orElseThrow(() -> new RuntimeException("Producto no encontrado con id: " + id));
     }
 
     public List<Product> findAll() {
-        return repo.findAll();
+        return repository.findAll();
     }
 
-    public Product findById(Long id) {
-        return repo.findById(id)
-                .orElseThrow(() -> new RuntimeException("Producto no encontrado"));
+    @Transactional
+    public Product update(Long id, Product product) {
+        Product existing = findById(id);
+        existing.setName(product.getName());
+        existing.setDescription(product.getDescription());
+        existing.setPrice(product.getPrice());
+        existing.setStock(product.getStock());
+        existing.setCategory(product.getCategory());
+        if (product.getImage() != null) {
+            existing.setImage(product.getImage());
+        }
+        return repository.save(existing);
     }
 
-    public Product update(Long id, Product p) {
-        Product prod = findById(id);
-        prod.setName(p.getName());
-        prod.setDescription(p.getDescription());
-        prod.setPrice(p.getPrice());
-        prod.setStock(p.getStock());
-        prod.setCategory(p.getCategory());
-        return repo.save(prod);
-    }
-
+    @Transactional
     public void delete(Long id) {
-        repo.deleteById(id);
+        repository.deleteById(id);
     }
 }

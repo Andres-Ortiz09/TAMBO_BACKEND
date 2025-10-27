@@ -30,7 +30,8 @@ public class Product {
     @NotBlank(message = "La categoría es obligatoria")
     private String category;
     
-
+    private String image;
+    
     public Long getId() {
         return id;
     }
@@ -77,6 +78,14 @@ public class Product {
 
     public void setCategory(String category) {
         this.category = category;
+    }
+
+    public String getImage() {
+        return image;
+    }
+
+    public void setImage(String image) {
+        this.image = image;
     }
 
 
