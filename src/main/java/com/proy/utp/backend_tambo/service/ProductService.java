@@ -2,7 +2,6 @@ package com.proy.utp.backend_tambo.service;
 
 import com.proy.utp.backend_tambo.model.Product;
 import com.proy.utp.backend_tambo.repository.ProductRepository;
-import jakarta.transaction.Transactional;
 import org.springframework.stereotype.Service;
 import java.util.List;
 
@@ -15,36 +14,31 @@ public class ProductService {
         this.repository = repository;
     }
 
-    @Transactional
+    public List<Product> getAll() {
+        return repository.findAll();
+    }
+
+    public Product getById(Long id) {
+        return repository.findById(id).orElse(null);
+    }
+
     public Product create(Product product) {
         return repository.save(product);
     }
 
-    // Método para buscar producto por id (lanza excepción si no existe)
-    public Product findById(Long id) {
+    public Product update(Long id, Product updatedProduct) {
         return repository.findById(id)
-                .orElseThrow(() -> new RuntimeException("Producto no encontrado con id: " + id));
+                .map(p -> {
+                    p.setName(updatedProduct.getName());
+                    p.setPrice(updatedProduct.getPrice());
+                    p.setStock(updatedProduct.getStock());
+                    p.setCategory(updatedProduct.getCategory());
+                    p.setImage(updatedProduct.getImage());
+                    return repository.save(p);
+                })
+                .orElse(null);
     }
 
-    public List<Product> findAll() {
-        return repository.findAll();
-    }
-
-    @Transactional
-    public Product update(Long id, Product product) {
-        Product existing = findById(id);
-        existing.setName(product.getName());
-        existing.setDescription(product.getDescription());
-        existing.setPrice(product.getPrice());
-        existing.setStock(product.getStock());
-        existing.setCategory(product.getCategory());
-        if (product.getImage() != null) {
-            existing.setImage(product.getImage());
-        }
-        return repository.save(existing);
-    }
-
-    @Transactional
     public void delete(Long id) {
         repository.deleteById(id);
     }
