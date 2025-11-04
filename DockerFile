@@ -1,0 +1,23 @@
+# Usar una imagen base de OpenJDK con el JDK adecuado para ejecutar Spring Boot
+FROM openjdk:21-jdk-slim
+
+# Carpeta de trabajo 
+WORKDIR /app
+
+# Copia el pom.xml y descarga dependencias
+COPY pom.xml .
+RUN mvn dependency:go-offline
+
+# Copia el resto del código
+COPY src ./src
+
+# Compila el proyecto
+RUN mvn clean package -DskipTests
+
+# Exponer el puerto 8080 para que la aplicación sea accesible
+EXPOSE 8080
+
+# Comando para ejecutar la aplicación al iniciar el contenedor
+CMD ["java", "-jar", "target/app.jar"]
+
+
