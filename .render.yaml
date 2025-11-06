@@ -1,7 +1,0 @@
-services:
-  - type: web
-    name: tambo-backend
-    env: docker
-    plan: free
-    autoDeploy: true
-    region: oregon
