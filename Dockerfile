@@ -1,4 +1,4 @@
-FROM maven:3.8.6-openjdk-17 as builder
+FROM maven:3.9-eclipse-temurin-21-alpine AS builder
 WORKDIR /app
 COPY pom.xml .
 COPY src ./src
