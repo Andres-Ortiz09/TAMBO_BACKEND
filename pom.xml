@@ -16,7 +16,7 @@
     <artifactId>backend-tambo</artifactId>
     <version>0.0.1-SNAPSHOT</version>
     <name>backend-tambo</name>
-    <description>Backend de Tienda Tambo (basado en AgroLink)</description>
+    <description>Backend de Tienda Tambo </description>
 
     <properties>
         <java.version>21</java.version>
