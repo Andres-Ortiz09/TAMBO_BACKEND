@@ -1,4 +1,4 @@
-FROM openjdk:17-jdk
+FROM bellsoft/liberica-runtime-container:jdk-17-musl
 VOLUME /tmp
 COPY target/*.jar app.jar
 EXPOSE 8080
