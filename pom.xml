@@ -95,7 +95,6 @@
     </dependencies>
 
     <build>
-        <finalName>app</finalName>
         <plugins>
             <!-- Plugin principal de Spring Boot -->
             <plugin>
