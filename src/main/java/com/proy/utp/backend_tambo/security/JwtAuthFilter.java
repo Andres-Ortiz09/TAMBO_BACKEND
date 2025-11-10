@@ -28,15 +28,28 @@ public class JwtAuthFilter extends OncePerRequestFilter {
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain)
             throws ServletException, IOException {
 
+        System.out.println("URL solicitada: " + request.getRequestURI());
         String token = getTokenFromRequest(request);
-        if (StringUtils.hasText(token) && tokenProvider.validateToken(token)) {
-            String username = tokenProvider.getUsername(token);
-            UserDetails userDetails = userDetailsService.loadUserByUsername(username);
-            UsernamePasswordAuthenticationToken auth = new UsernamePasswordAuthenticationToken(
-                    userDetails, null, userDetails.getAuthorities()
-            );
-            auth.setDetails(new WebAuthenticationDetailsSource().buildDetails(request));
-            SecurityContextHolder.getContext().setAuthentication(auth);
+        System.out.println("Token recibido: " + (token != null ? "Sí" : "No"));
+        
+        if (StringUtils.hasText(token)) {
+            boolean isValid = tokenProvider.validateToken(token);
+            System.out.println("Token válido: " + isValid);
+            
+            if (isValid) {
+                String username = tokenProvider.getUsername(token);
+                System.out.println("Username del token: " + username);
+                
+                UserDetails userDetails = userDetailsService.loadUserByUsername(username);
+                System.out.println("Autoridades del usuario: " + userDetails.getAuthorities());
+                
+                UsernamePasswordAuthenticationToken auth = new UsernamePasswordAuthenticationToken(
+                        userDetails, null, userDetails.getAuthorities()
+                );
+                auth.setDetails(new WebAuthenticationDetailsSource().buildDetails(request));
+                SecurityContextHolder.getContext().setAuthentication(auth);
+                System.out.println("Autenticación establecida en el contexto");
+            }
         }
 
         filterChain.doFilter(request, response);

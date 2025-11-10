@@ -40,16 +40,16 @@ public class SecurityConfig {
 
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
-        http.cors().and().csrf().disable()
-                .authorizeHttpRequests(auth -> auth
+        http.cors(cors -> cors.configure(http))
+            .csrf(csrf -> csrf.disable())
+            .authorizeHttpRequests(auth -> auth
                 .requestMatchers("/auth/**").permitAll()
                 .requestMatchers(HttpMethod.GET, "/products/**").permitAll()
-                .requestMatchers(HttpMethod.POST, "/products/**").hasRole("ADMIN")
-                .requestMatchers(HttpMethod.PUT, "/products/**").hasRole("ADMIN")
-                .requestMatchers(HttpMethod.DELETE, "/products/**").hasRole("ADMIN")
                 .requestMatchers("/h2-console/**").permitAll()
+                .requestMatchers("/api/pedidos/admin/**").hasAuthority("ROLE_ADMIN")
+                .requestMatchers("/api/pedidos/**").authenticated()
                 .anyRequest().authenticated()
-                );
+            );
 
         http.addFilterBefore(jwtAuthFilter(), UsernamePasswordAuthenticationFilter.class);
         http.headers().frameOptions().disable();

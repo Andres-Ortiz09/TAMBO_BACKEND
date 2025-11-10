@@ -4,32 +4,41 @@ import jakarta.persistence.*;
 import jakarta.validation.constraints.*;
 
 @Entity
-@Table(name = "product")
+@Table(name = "producto")
 public class Product {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "id_producto")
     private Long id;
 
     @NotBlank(message = "El nombre no puede estar vacío")
+    @Column(name = "nombre")
     private String name;
 
     @NotBlank(message = "La descripción es obligatoria")
     @Size(max = 1000, message = "La descripción no puede superar los 1000 caracteres.")
-    @Column(length = 1000)
+    @Column(name = "descripcion", length = 1000)
     private String description;
 
     @NotNull(message = "El precio es obligatorio")
     @Positive(message = "El precio debe ser mayor que 0")
+    @Column(name = "precio")
     private Double price;
 
     @NotNull(message = "El stock es obligatorio")
     @Min(value = 0, message = "El stock no puede ser negativo")
+    @Column(name = "stock")
     private Integer stock;
 
+    @Column(name = "imagen")
+    private String image;
+
     @NotBlank(message = "La categoría es obligatoria")
+    @Column(name = "categoria")
     private String category;
-    
+
+    // Getters y Setters
 
     public Long getId() {
         return id;
@@ -71,6 +80,14 @@ public class Product {
         this.stock = stock;
     }
 
+    public String getImage() {
+        return image;
+    }
+
+    public void setImage(String image) {
+        this.image = image;
+    }
+
     public String getCategory() {
         return category;
     }
@@ -78,6 +95,4 @@ public class Product {
     public void setCategory(String category) {
         this.category = category;
     }
-
-
 }
