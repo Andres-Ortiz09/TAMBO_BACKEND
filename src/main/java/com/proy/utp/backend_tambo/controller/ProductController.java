@@ -1,50 +1,61 @@
 package com.proy.utp.backend_tambo.controller;
 
 import com.proy.utp.backend_tambo.model.Product;
+import com.proy.utp.backend_tambo.repository.ProductRepository;
 import com.proy.utp.backend_tambo.service.ProductService;
 import jakarta.validation.Valid;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.http.HttpStatus;
 import java.util.List;
 
 @RestController
-@RequestMapping("/products")
+@RequestMapping("/api/products")
+@CrossOrigin(origins = "http://localhost:5173") 
 public class ProductController {
 
-    private final ProductService service;
+    private final ProductRepository productRepository;
 
-    public ProductController(ProductService service) {
-        this.service = service;
+    public ProductController(ProductRepository productRepository) {
+        this.productRepository = productRepository;
     }
 
     @GetMapping
-    public ResponseEntity<List<Product>> all() {
-        return ResponseEntity.ok(service.findAll());
+    public List<Product> getAll() {
+        return productRepository.findAll();
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<Product> getOne(@PathVariable Long id) {
-        return ResponseEntity.ok(service.findById(id));
+    public ResponseEntity<Product> getById(@PathVariable Long id) {
+        return productRepository.findById(id)
+                .map(ResponseEntity::ok)
+                .orElse(ResponseEntity.notFound().build());
     }
 
     @PostMapping
-    @PreAuthorize("hasRole('ADMIN')")
-    public ResponseEntity<Product> create(@Valid @RequestBody Product p) {
-        Product saved = service.create(p);
-        return ResponseEntity.ok(saved);
+    public ResponseEntity<Product> create(@Valid @RequestBody Product product) {
+        return ResponseEntity.ok(productRepository.save(product));
     }
 
     @PutMapping("/{id}")
-    @PreAuthorize("hasRole('ADMIN')")
-    public ResponseEntity<Product> update(@PathVariable Long id, @Valid @RequestBody Product product) {
-        return ResponseEntity.ok(service.update(id, product));
+    public ResponseEntity<Product> update(@PathVariable Long id, @Valid @RequestBody Product updatedProduct) {
+        return productRepository.findById(id).map(product -> {
+            product.setName(updatedProduct.getName());
+            product.setPrice(updatedProduct.getPrice());
+            product.setStock(updatedProduct.getStock());
+            product.setCategory(updatedProduct.getCategory());
+            product.setImage(updatedProduct.getImage());
+            product.setDescription(updatedProduct.getDescription());
+            return ResponseEntity.ok(productRepository.save(product));
+        }).orElse(ResponseEntity.notFound().build());
     }
 
     @DeleteMapping("/{id}")
-    @PreAuthorize("hasRole('ADMIN')")
-    public ResponseEntity<?> delete(@PathVariable Long id) {
-        service.delete(id);
+    public ResponseEntity<Void> delete(@PathVariable Long id) {
+        if (!productRepository.existsById(id)) {
+            return ResponseEntity.notFound().build();
+        }
+        productRepository.deleteById(id);
         return ResponseEntity.noContent().build();
     }
 }
