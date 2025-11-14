@@ -73,4 +73,19 @@ public class UserController {
         );
         return ResponseEntity.ok(res);
     }
+    @GetMapping("/public/{id}")
+    public ResponseEntity<UserResponse> getClientePublico(@PathVariable Long id) {
+        return userRepo.findById(id)
+                .map(user -> ResponseEntity.ok(new UserResponse(
+                        user.getId(),
+                        user.getFirstName(),
+                        user.getLastName(),
+                        user.getEmail(),
+                        user.getAddress(),
+                        user.getPhone(),
+                        null,
+                        null
+                )))
+                .orElse(ResponseEntity.notFound().build());
+    }
 }

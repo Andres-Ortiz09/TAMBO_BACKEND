@@ -3,6 +3,7 @@ package com.proy.utp.backend_tambo.service;
 import com.proy.utp.backend_tambo.model.Product;
 import com.proy.utp.backend_tambo.repository.ProductRepository;
 import org.springframework.stereotype.Service;
+
 import java.util.List;
 
 @Service
@@ -34,6 +35,7 @@ public class ProductService {
         prod.setPrice(p.getPrice());
         prod.setStock(p.getStock());
         prod.setCategory(p.getCategory());
+        prod.setImage(p.getImage());
         return repo.save(prod);
     }
 

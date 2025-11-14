@@ -5,67 +5,40 @@ import java.time.LocalDateTime;
 import java.util.List;
 
 @Entity
-@Table(name = "pedidos")
+@Table(name = "pedido")
 public class Pedido {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "id_pedido")
     private Long id;
 
     @ManyToOne
-    @JoinColumn(name = "usuario_id", nullable = false)
-    private User usuario;
+    @JoinColumn(name = "id_usuario", nullable = false)
+    private User user;
 
-    @ManyToMany
-    @JoinTable(
-        name = "pedido_productos",
-        joinColumns = @JoinColumn(name = "pedido_id"),
-        inverseJoinColumns = @JoinColumn(name = "producto_id")
-    )
-    private List<Product> productos;
+    @Column(name = "fecha")
+    private LocalDateTime fechaPedido = LocalDateTime.now();
 
-    private LocalDateTime fechaPedido;
-    
     @Enumerated(EnumType.STRING)
-    private EstadoPedido estado;
+    @Column(name = "estado")
+    private EstadoPedido estado = EstadoPedido.PENDIENTE;
 
-    public Pedido() {
-        this.fechaPedido = LocalDateTime.now();
-        this.estado = EstadoPedido.PENDIENTE;
-    }
+    @OneToMany(mappedBy = "pedido", cascade = CascadeType.ALL)
+    private List<PedidoItem> items;
 
-    public Long getId() {
-        return id;
-    }
+    public Long getId() { return id; }
+    public void setId(Long id) { this.id = id; }
 
-    public void setId(Long id) {
-        this.id = id;
-    }
+    public User getUser() { return user; }
+    public void setUser(User user) { this.user = user; }
 
-    public User getUsuario() {
-        return usuario;
-    }
+    public LocalDateTime getFechaPedido() { return fechaPedido; }
+    public void setFechaPedido(LocalDateTime fechaPedido) { this.fechaPedido = fechaPedido; }
 
-    public void setUsuario(User usuario) {
-        this.usuario = usuario;
-    }
+    public EstadoPedido getEstado() { return estado; }
+    public void setEstado(EstadoPedido estado) { this.estado = estado; }
 
-    public List<Product> getProductos() {
-        return productos;
-    }
-
-    public void setProductos(List<Product> productos) {
-        this.productos = productos;
-    }
-
-    public LocalDateTime getFechaPedido() {
-        return fechaPedido;
-    }
-
-    public EstadoPedido getEstado() {
-        return estado;
-    }
-
-    public void setEstado(EstadoPedido estado) {
-        this.estado = estado;
-    }
+    public List<PedidoItem> getItems() { return items; }
+    public void setItems(List<PedidoItem> items) { this.items = items; }
 }
