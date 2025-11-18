@@ -27,7 +27,7 @@ public class Product {
     private String category;
 
     @Lob
-    @Column(columnDefinition = "TEXT")
+    @Column(columnDefinition = "LONGTEXT")
     private String image;
 
     @NotBlank(message = "La descripción es obligatoria")

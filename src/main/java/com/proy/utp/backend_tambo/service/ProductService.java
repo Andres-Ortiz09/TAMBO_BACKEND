@@ -3,43 +3,43 @@ package com.proy.utp.backend_tambo.service;
 import com.proy.utp.backend_tambo.model.Product;
 import com.proy.utp.backend_tambo.repository.ProductRepository;
 import org.springframework.stereotype.Service;
+
 import java.util.List;
 
 @Service
 public class ProductService {
 
-    private final ProductRepository repository;
+    private final ProductRepository repo;
 
-    public ProductService(ProductRepository repository) {
-        this.repository = repository;
+    public ProductService(ProductRepository repo) {
+        this.repo = repo;
     }
 
-    public List<Product> getAll() {
-        return repository.findAll();
+    public Product create(Product p) {
+        return repo.save(p);
     }
 
-    public Product getById(Long id) {
-        return repository.findById(id).orElse(null);
+    public List<Product> findAll() {
+        return repo.findAll();
     }
 
-    public Product create(Product product) {
-        return repository.save(product);
+    public Product findById(Long id) {
+        return repo.findById(id)
+                .orElseThrow(() -> new RuntimeException("Producto no encontrado"));
     }
 
-    public Product update(Long id, Product updatedProduct) {
-        return repository.findById(id)
-                .map(p -> {
-                    p.setName(updatedProduct.getName());
-                    p.setPrice(updatedProduct.getPrice());
-                    p.setStock(updatedProduct.getStock());
-                    p.setCategory(updatedProduct.getCategory());
-                    p.setImage(updatedProduct.getImage());
-                    return repository.save(p);
-                })
-                .orElse(null);
+    public Product update(Long id, Product p) {
+        Product prod = findById(id);
+        prod.setName(p.getName());
+        prod.setDescription(p.getDescription());
+        prod.setPrice(p.getPrice());
+        prod.setStock(p.getStock());
+        prod.setCategory(p.getCategory());
+        prod.setImage(p.getImage());
+        return repo.save(prod);
     }
 
     public void delete(Long id) {
-        repository.deleteById(id);
+        repo.deleteById(id);
     }
 }
