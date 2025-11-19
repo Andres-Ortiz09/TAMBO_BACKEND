@@ -28,6 +28,7 @@ public class Product {
 
     @Lob
     @Column(columnDefinition = "TEXT")
+    @JsonIgnore
     private String image;
 
     @NotBlank(message = "La descripción es obligatoria")
