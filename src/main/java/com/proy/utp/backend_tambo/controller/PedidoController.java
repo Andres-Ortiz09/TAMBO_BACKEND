@@ -94,20 +94,26 @@ public class PedidoController {
         return ResponseEntity.ok(pedidoCancelado);
     }
 
-    @PreAuthorize("hasRole('ROLE_ADMIN')")
+       @PreAuthorize("hasRole('ROLE_ADMIN')")
     @GetMapping("/admin/todos")
-    public ResponseEntity<List<Pedido>> obtenerTodosLosPedidos() {
+    public ResponseEntity<List<PedidoResponseDTO>> obtenerTodosLosPedidos() {
         List<Pedido> pedidos = pedidoService.obtenerTodosLosPedidos();
-        return ResponseEntity.ok(pedidos);
+        List<PedidoResponseDTO> dtos = pedidos.stream()
+                .map(pedidoService::convertirPedido) // convierte a DTO
+                .toList();
+        return ResponseEntity.ok(dtos);
     }
 
     @GetMapping("/mis-pedidos")
-    public ResponseEntity<List<Pedido>> obtenerPedidosDelUsuario(Authentication authentication) {
+    public ResponseEntity<List<PedidoResponseDTO>> obtenerPedidosDelUsuario(Authentication authentication) {
         if (authentication == null || authentication.getName() == null) {
             return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
         }
 
         List<Pedido> pedidos = pedidoService.obtenerPedidosPorUsuario(authentication.getName());
-        return ResponseEntity.ok(pedidos);
+        List<PedidoResponseDTO> dtos = pedidos.stream()
+                .map(pedidoService::convertirPedido)
+                .toList();
+        return ResponseEntity.ok(dtos);
     }
 }
