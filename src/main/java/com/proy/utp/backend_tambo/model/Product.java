@@ -2,6 +2,8 @@ package com.proy.utp.backend_tambo.model;
 
 import jakarta.persistence.*;
 import jakarta.validation.constraints.*;
+import jakarta.persistence.Basic;
+import jakarta.persistence.FetchType;
 
 @Entity
 @Table(name = "products")
@@ -28,7 +30,7 @@ public class Product {
 
     @Lob
     @Column(columnDefinition = "TEXT")
-    @JsonIgnore
+    @Basic(fetch = FetchType.EAGER) 
     private String image;
 
     @NotBlank(message = "La descripción es obligatoria")
