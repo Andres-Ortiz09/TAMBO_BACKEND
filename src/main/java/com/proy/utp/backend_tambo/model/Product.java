@@ -1,6 +1,5 @@
 package com.proy.utp.backend_tambo.model;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.*;
 
@@ -27,10 +26,7 @@ public class Product {
     @NotBlank(message = "La categoría es obligatoria")
     private String category;
 
-    // Mantener STRING: funciona con tu frontend
-    @Lob
     @Column(columnDefinition = "TEXT")
-    @JsonIgnore  // ← CLAVE: oculta imagen SOLO en pedidos
     private String image;
 
     @NotBlank(message = "La descripción es obligatoria")
