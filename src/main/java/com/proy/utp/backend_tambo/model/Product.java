@@ -2,8 +2,6 @@ package com.proy.utp.backend_tambo.model;
 
 import jakarta.persistence.*;
 import jakarta.validation.constraints.*;
-import jakarta.persistence.Basic;
-import jakarta.persistence.FetchType;
 
 @Entity
 @Table(name = "products")
@@ -29,9 +27,9 @@ public class Product {
     private String category;
 
     @Lob
-    @Column(columnDefinition = "TEXT")
-    @Basic(fetch = FetchType.EAGER) 
-    private String image;
+    @Basic(fetch = FetchType.LAZY)
+    @Column(name = "image", columnDefinition = "BYTEA")
+    private byte[] image;
 
     @NotBlank(message = "La descripción es obligatoria")
     @Size(max = 255, message = "La descripción debe tener como máximo 255 caracteres")
@@ -40,7 +38,7 @@ public class Product {
     public Product() {
     }
 
-    public Product(Long id, String name, Double price, Integer stock, String category, String image, String description) {
+    public Product(Long id, String name, Double price, Integer stock, String category, byte[] image, String description) {
         this.id = id;
         this.name = name;
         this.price = price;
@@ -50,61 +48,25 @@ public class Product {
         this.description = description;
     }
 
-    // Getters and Setters
-    public Long getId() {
-        return id;
-    }
+    // Getters y Setters
+    public Long getId() { return id; }
+    public void setId(Long id) { this.id = id; }
 
-    public void setId(Long id) {
-        this.id = id;
-    }
+    public String getName() { return name; }
+    public void setName(String name) { this.name = name; }
 
-    public String getName() {
-        return name;
-    }
+    public Double getPrice() { return price; }
+    public void setPrice(Double price) { this.price = price; }
 
-    public void setName(String name) {
-        this.name = name;
-    }
+    public Integer getStock() { return stock; }
+    public void setStock(Integer stock) { this.stock = stock; }
 
-    public Double getPrice() {
-        return price;
-    }
+    public String getCategory() { return category; }
+    public void setCategory(String category) { this.category = category; }
 
-    public void setPrice(Double price) {
-        this.price = price;
-    }
+    public byte[] getImage() { return image; }
+    public void setImage(byte[] image) { this.image = image; }
 
-    public Integer getStock() {
-        return stock;
-    }
-
-    public void setStock(Integer stock) {
-        this.stock = stock;
-    }
-
-    public String getCategory() {
-        return category;
-    }
-
-    public void setCategory(String category) {
-        this.category = category;
-    }
-
-    public String getImage() {
-        return image;
-    }
-
-    public void setImage(String image) {
-        this.image = image;
-    }
-
-    public String getDescription() {
-        return description;
-    }
-
-    public void setDescription(String description) {
-        this.description = description;
-    }
-
+    public String getDescription() { return description; }
+    public void setDescription(String description) { this.description = description; }
 }
