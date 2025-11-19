@@ -26,6 +26,7 @@ public class Product {
     @NotBlank(message = "La categoría es obligatoria")
     private String category;
 
+    @Lob
     @Column(columnDefinition = "TEXT")
     private String image;
 
