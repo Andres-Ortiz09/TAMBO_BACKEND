@@ -1,5 +1,6 @@
 package com.proy.utp.backend_tambo.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.*;
 
@@ -26,19 +27,19 @@ public class Product {
     @NotBlank(message = "La categoría es obligatoria")
     private String category;
 
+    // Mantener STRING: funciona con tu frontend
     @Lob
-    @Basic(fetch = FetchType.LAZY)
-    @Column(name = "image", columnDefinition = "BYTEA")
-    private byte[] image;
+    @Column(columnDefinition = "TEXT")
+    @JsonIgnore  // ← CLAVE: oculta imagen SOLO en pedidos
+    private String image;
 
     @NotBlank(message = "La descripción es obligatoria")
     @Size(max = 255, message = "La descripción debe tener como máximo 255 caracteres")
     private String description;
 
-    public Product() {
-    }
+    public Product() {}
 
-    public Product(Long id, String name, Double price, Integer stock, String category, byte[] image, String description) {
+    public Product(Long id, String name, Double price, Integer stock, String category, String image, String description) {
         this.id = id;
         this.name = name;
         this.price = price;
@@ -64,8 +65,8 @@ public class Product {
     public String getCategory() { return category; }
     public void setCategory(String category) { this.category = category; }
 
-    public byte[] getImage() { return image; }
-    public void setImage(byte[] image) { this.image = image; }
+    public String getImage() { return image; }
+    public void setImage(String image) { this.image = image; }
 
     public String getDescription() { return description; }
     public void setDescription(String description) { this.description = description; }
