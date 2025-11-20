@@ -44,7 +44,6 @@ public class PedidoController {
                 authentication.getName(),
                 request.getProductosIds(),
                 request.getCantidades(),
-                request.getDireccionEntrega()
         );
 
         PedidoResponseDTO dto = pedidoService.convertirPedido(pedido);
