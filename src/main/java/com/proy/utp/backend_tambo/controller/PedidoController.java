@@ -43,7 +43,7 @@ public class PedidoController {
         Pedido pedido = pedidoService.crearPedido(
                 authentication.getName(),
                 request.getProductosIds(),
-                request.getCantidades(),
+                request.getCantidades()
         );
 
         PedidoResponseDTO dto = pedidoService.convertirPedido(pedido);
