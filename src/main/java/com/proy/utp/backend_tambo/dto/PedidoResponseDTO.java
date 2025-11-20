@@ -1,14 +1,13 @@
 package com.proy.utp.backend_tambo.dto;
 
 import java.math.BigDecimal;
-import java.time.LocalDateTime;
+import java.time.LocalDate;
 import java.util.List;
 
 public class PedidoResponseDTO {
 
     private Long idPedido;
-    private String estado;
-    private LocalDateTime fecha;
+    private LocalDate fecha;
     private BigDecimal totalGeneral;
     private List<ItemDTO> items;
 
@@ -34,11 +33,8 @@ public class PedidoResponseDTO {
     public Long getIdPedido() { return idPedido; }
     public void setIdPedido(Long idPedido) { this.idPedido = idPedido; }
 
-    public String getEstado() { return estado; }
-    public void setEstado(String estado) { this.estado = estado; }
-
-    public LocalDateTime getFecha() { return fecha; }
-    public void setFecha(LocalDateTime fecha) { this.fecha = fecha; }
+    public LocalDate getFecha() { return fecha; }
+    public void setFecha(LocalDate fecha) { this.fecha = fecha; }
 
     public BigDecimal getTotalGeneral() { return totalGeneral; }
     public void setTotalGeneral(BigDecimal totalGeneral) { this.totalGeneral = totalGeneral; }
