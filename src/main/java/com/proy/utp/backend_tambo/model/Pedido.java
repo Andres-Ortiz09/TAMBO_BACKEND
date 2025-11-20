@@ -1,7 +1,7 @@
 package com.proy.utp.backend_tambo.model;
 
 import jakarta.persistence.*;
-import java.time.LocalDateTime;
+import java.time.LocalDate;
 import java.util.List;
 
 @Entity
@@ -18,11 +18,7 @@ public class Pedido {
     private User user;
 
     @Column(name = "fecha")
-    private LocalDateTime fechaPedido = LocalDateTime.now();
-
-    @Enumerated(EnumType.STRING)
-    @Column(name = "estado")
-    private EstadoPedido estado = EstadoPedido.PENDIENTE;
+    private LocalDate fechaPedido;
 
     @OneToMany(mappedBy = "pedido", cascade = CascadeType.ALL)
     private List<PedidoItem> items;
@@ -33,11 +29,8 @@ public class Pedido {
     public User getUser() { return user; }
     public void setUser(User user) { this.user = user; }
 
-    public LocalDateTime getFechaPedido() { return fechaPedido; }
-    public void setFechaPedido(LocalDateTime fechaPedido) { this.fechaPedido = fechaPedido; }
-
-    public EstadoPedido getEstado() { return estado; }
-    public void setEstado(EstadoPedido estado) { this.estado = estado; }
+    public LocalDate getFechaPedido() { return fechaPedido; }
+    public void setFechaPedido(LocalDate fechaPedido) { this.fechaPedido = fechaPedido; }
 
     public List<PedidoItem> getItems() { return items; }
     public void setItems(List<PedidoItem> items) { this.items = items; }
