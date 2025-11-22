@@ -16,7 +16,7 @@
     <artifactId>backend-tambo</artifactId>
     <version>0.0.1-SNAPSHOT</version>
     <name>backend-tambo</name>
-    <description>Backend de Tienda Tambo (basado en AgroLink)</description>
+    <description>Backend de Tienda Tambo </description>
 
     <properties>
         <java.version>21</java.version>
@@ -36,7 +36,7 @@
             <artifactId>spring-boot-starter-security</artifactId>
         </dependency>
 
-        <!-- JPA / MySQL -->
+        <!-- JPA / MySQL/POSTGRESQL -->
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-data-jpa</artifactId>
@@ -47,6 +47,11 @@
             <version>9.3.0</version>
             <scope>runtime</scope>
         </dependency>
+        <dependency>
+            <groupId>org.postgresql</groupId>
+            <artifactId>postgresql</artifactId>
+        </dependency>
+
 
         <!-- MapStruct  -->
         <dependency>
@@ -81,14 +86,20 @@
             <scope>test</scope>
         </dependency>
 
-        <!-- Eliminamos javaee-api porque ya está incluido en Spring Boot -->
         <dependency>
             <groupId>jakarta.validation</groupId>
             <artifactId>jakarta.validation-api</artifactId>
             <version>3.0.2</version>
             <type>jar</type>
         </dependency>
-    </dependencies>
+
+        <!-- Springdoc OpenAPI -->
+        <dependency>
+            <groupId>org.springdoc</groupId>
+            <artifactId>springdoc-openapi-starter-webmvc-ui</artifactId>
+            <version>2.5.0</version>
+        </dependency>
+        </dependencies>
 
     <build>
         <plugins>
