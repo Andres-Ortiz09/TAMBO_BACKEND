@@ -33,7 +33,7 @@ Spring Boot se instala automáticamente al compilar el proyecto, pero puedes con
 ### Video instalación IntelliJ IDEA
 Puedes usar VS Code o IntelliJ IDEA:
 
-[![Instalar IntelliJ IDEA](https://img.icons8.com/color/1200/intellij-idea.jpg)](https://www.youtube.com/watch?v=-QG4TFNKM2w&pp=ygUiZGVzY2FyZ2FyIGUgaW5zdGFsYXIgaW50ZWxsaWogaWRlYQ%3D%3D)
+[![Instalar IntelliJ IDEA](https://images.seeklogo.com/logo-png/48/2/jetbrains-intellij-idea-logo-png_seeklogo-487173.png)](https://www.youtube.com/watch?v=-QG4TFNKM2w&pp=ygUiZGVzY2FyZ2FyIGUgaW5zdGFsYXIgaW50ZWxsaWogaWRlYQ%3D%3D)
 
 #### Video instalación VS Code
 [![Instalar VS Code](https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcThOU4hIRB20Oy0barVYD6x4N8hQa5QOW7Www&s)](https://www.youtube.com/watch?v=6pD7_rcFrj8&pp=ygUnZGVzY2FyZ2FyIGUgaW5zdGFsYXIgdmlzdWFsIHN0dWRpbyBjb2Rl)
