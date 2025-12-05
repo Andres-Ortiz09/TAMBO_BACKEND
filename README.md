@@ -4,7 +4,7 @@ Este documento te guía paso a paso para ejecutar el backend del sistema TAMBO, 
 
 ## 1. Descarga e Instalación de Frameworks
 
-### Video instalación Java 17
+### Video instalación Java 21
 Descarga e instala Java desde la página oficial:
 
 [![Instalar Java](https://www.oracle.com/img/tech/cb88-java-logo-001.jpg)](https://www.youtube.com/watch?v=NDQ9PvjR_Hk&pp=ygUcZGVzY2FyZ2FyIGUgaW5zdGFsYXIgamF2YSAxNw%3D%3D)
