@@ -4,23 +4,19 @@ import jakarta.persistence.*;
 import jakarta.validation.constraints.*;
 
 @Entity
-@Table(name = "product")
+@Table(name = "products")
 public class Product {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @NotBlank(message = "El nombre no puede estar vacío")
+    @NotBlank(message = "Nombre es obligatorio")
+    @Size(max = 100, message = "El nombre debe tener como máximo 100 caracteres")
     private String name;
 
-    @NotBlank(message = "La descripción es obligatoria")
-    @Size(max = 1000, message = "La descripción no puede superar los 1000 caracteres.")
-    @Column(length = 1000)
-    private String description;
-
     @NotNull(message = "El precio es obligatorio")
-    @Positive(message = "El precio debe ser mayor que 0")
+    @DecimalMin(value = "0.01", message = "El precio debe ser mayor que 0")
     private Double price;
 
     @NotNull(message = "El stock es obligatorio")
@@ -29,55 +25,46 @@ public class Product {
 
     @NotBlank(message = "La categoría es obligatoria")
     private String category;
-    
 
-    public Long getId() {
-        return id;
-    }
+    @Lob
+    @Column(columnDefinition = "TEXT")
+    private String image;
 
-    public void setId(Long id) {
+    @NotBlank(message = "La descripción es obligatoria")
+    @Size(max = 255, message = "La descripción debe tener como máximo 255 caracteres")
+    private String description;
+
+    public Product() {}
+
+    public Product(Long id, String name, Double price, Integer stock, String category, String image, String description) {
         this.id = id;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
         this.name = name;
-    }
-
-    public String getDescription() {
-        return description;
-    }
-
-    public void setDescription(String description) {
+        this.price = price;
+        this.stock = stock;
+        this.category = category;
+        this.image = image;
         this.description = description;
     }
 
-    public Double getPrice() {
-        return price;
-    }
+    // Getters y Setters
+    public Long getId() { return id; }
+    public void setId(Long id) { this.id = id; }
 
-    public void setPrice(Double price) {
-        this.price = price;
-    }
+    public String getName() { return name; }
+    public void setName(String name) { this.name = name; }
 
-    public Integer getStock() {
-        return stock;
-    }
+    public Double getPrice() { return price; }
+    public void setPrice(Double price) { this.price = price; }
 
-    public void setStock(Integer stock) {
-        this.stock = stock;
-    }
+    public Integer getStock() { return stock; }
+    public void setStock(Integer stock) { this.stock = stock; }
 
-    public String getCategory() {
-        return category;
-    }
+    public String getCategory() { return category; }
+    public void setCategory(String category) { this.category = category; }
 
-    public void setCategory(String category) {
-        this.category = category;
-    }
+    public String getImage() { return image; }
+    public void setImage(String image) { this.image = image; }
 
-
+    public String getDescription() { return description; }
+    public void setDescription(String description) { this.description = description; }
 }
