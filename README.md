@@ -33,10 +33,10 @@ Spring Boot se instala automáticamente al compilar el proyecto, pero puedes con
 ### Video instalación IntelliJ IDEA
 Puedes usar VS Code o IntelliJ IDEA:
 
-[![Instalar IntelliJ IDEA](https://upload.wikimedia.org/wikipedia/commons/thumb/e/ef/JetBrains_IntelliJ_IDEA_Product_Icon.svg/1200px-JetBrains_IntelliJ_IDEA_Product_Icon.svg.png)](https://www.youtube.com/watch?v=-QG4TFNKM2w&pp=ygUiZGVzY2FyZ2FyIGUgaW5zdGFsYXIgaW50ZWxsaWogaWRlYQ%3D%3D)
+[![Instalar IntelliJ IDEA](https://img.icons8.com/color/1200/intellij-idea.jpg)](https://www.youtube.com/watch?v=-QG4TFNKM2w&pp=ygUiZGVzY2FyZ2FyIGUgaW5zdGFsYXIgaW50ZWxsaWogaWRlYQ%3D%3D)
 
 #### Video instalación VS Code
-[![Instalar VS Code](https://upload.wikimedia.org/wikipedia/commons/thumb/9/9a/Visual_Studio_Code_1.35_icon.svg/1200px-Visual_Studio_Code_1.35_icon.svg.png)](https://www.youtube.com/watch?v=6pD7_rcFrj8&pp=ygUnZGVzY2FyZ2FyIGUgaW5zdGFsYXIgdmlzdWFsIHN0dWRpbyBjb2Rl)
+[![Instalar VS Code](https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcThOU4hIRB20Oy0barVYD6x4N8hQa5QOW7Www&s)](https://www.youtube.com/watch?v=6pD7_rcFrj8&pp=ygUnZGVzY2FyZ2FyIGUgaW5zdGFsYXIgdmlzdWFsIHN0dWRpbyBjb2Rl)
 
 
 ## 2. Clonar el Repositorio
